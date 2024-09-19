@@ -1,13 +1,15 @@
 ---
-title: NGINX One Console Lab - Config Sync Groups - Part 2
-description: A fix-it lab for Config Sync Groups in the NGINX One Console
+title: Technical Upskill Session - Config Sync Group Use Case Fix It Lab
+description: A Fix It lab for Config Sync Groups in the NGINX One Console
 order: 7
 ---
 ## Introduction
 
-In this lab, you will be taking a look at a config sync group consisting of a mix of NGINX Plus and NGINX OSS instances. Follow the steps below to set up the lab environment:
+In this lab, you will be taking a look at a config sync group consisting of a mix of NGINX Plus and NGINX OSS instances.
+Follow the steps below to set up the lab environment:
 
-1. Based on what you have learned earlier, create a new Config Sync Group using your unique lab deployment name, **<GetVariable name="petname" />**.
+1. Based on what you have learned earlier, create a new Config Sync Group using your unique lab deployment name,
+**<GetVariable name="petname" />-fixit**.
 
 1. Now click on **Run** for each of the NGINX Plus containers listed below. They will be added to the config sync group you just created, and the group will take up the configuration of the first container.
 
@@ -22,7 +24,7 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -38,7 +40,7 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -59,63 +61,31 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
     
     ```nginx
     server {
-        listen       80 default_server;
-        server_name  localhost;
+        listen 80 default_server;
+        server_name app_server;
 
-        #access_log  /var/log/nginx/host.access.log  main;
+        root /usr/share/nginx/html;
+        error_log /var/log/nginx/app-server-error.log notice;
+        index demo-index.html index.html;
+        expires -1;
 
-        location / {
-            root   /usr/share/nginx/html;
-            index  index.html index.htm;
-        }
+        sub_filter_once off;
+        sub_filter 'server_hostname' '$hostname';
+        sub_filter 'server_address'  '$server_addr:$server_port';
+        sub_filter 'server_url'      '$request_uri';
+        sub_filter 'remote_addr'     '$remote_addr:$remote_port';
+        sub_filter 'server_date'     '$time_local';
+        sub_filter 'client_browser'  '$http_user_agent';
+        sub_filter 'request_id'      '$request_id';
+        sub_filter 'nginx_version'   '$nginx_version';
+        sub_filter 'document_root'   '$document_root';
+        sub_filter 'proxied_for_ip'  '$http_x_forwarded_for';
 
-        #error_page  404              /404.html;
-
-        # redirect server error pages to the static page /50x.html
-        #
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   /usr/share/nginx/html;
-        }
-
-        # proxy the PHP scripts to Apache listening on 127.0.0.1:80
-        #
-        #location ~ \.php$ {
-        #    proxy_pass   http://127.0.0.1;
-        #}
-
-        # pass the PHP scripts to FastCGI server listening on 127.0.0.1:9000
-        #
-        #location ~ \.php$ {
-        #    root           html;
-        #    fastcgi_pass   127.0.0.1:9000;
-        #    fastcgi_index  index.php;
-        #    fastcgi_param  SCRIPT_FILENAME  /scripts$fastcgi_script_name;
-        #    include        fastcgi_params;
-        #}
-
-        # deny access to .htaccess files, if Apache's document root
-        # concurs with nginx's one
-        #
-        #location ~ /\.ht {
-        #    deny  all;
-        #}
-
-        # enable /api/ location with appropriate access control in order
-        # to make use of NGINX Plus API
-        #
         location /api/ {
             api write=on;
             allow 127.0.0.1;
             deny all;
         }
-
-        # enable NGINX Plus Dashboard; requires /api/ location to be
-        # enabled and appropriate access control for remote access
-        #
-        #location = /dashboard.html {
-        #    root /usr/share/nginx/html;
-        #}
     }
     ```
 
@@ -132,7 +102,7 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-oss`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -148,7 +118,7 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-oss`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -159,24 +129,68 @@ In this lab, you will be taking a look at a config sync group consisting of a mi
 ---
 ## Fix-It Lab
 
-Once the NGINX containers have been successfully added to your config sync group, your lab environment setup is complete. You will notice that the group will be out-of-sync and unable to resolve itself. Your objective is to find out why this is happening and resolve the issue.
+Once the NGINX containers have been successfully added to your config sync group, your lab environment setup is
+complete. You will notice that the group will be out-of-sync and unable to resolve itself. Your objective is to find
+out why this is happening and resolve the issue.
 
 ![](media/lab7-1.png)
 
 ---
 ## Solutions
 
+### Root cause
+
+You can find the issue by selecting one of the instances that is *Not in Sync*. Below is a screenshot of the error
+message from one of the NGINX OSS instances.
+
+![](media/upskill/use-case-2/3.png)
+
+> Note the line **"unknown directive "api" in /etc/nginx/conf.d/demo.conf:23"**.
+
+The NGINX OSS does not have the *api* directive.
+
 Here are two ways to resolve this situation:
 
-1. The most straight-forward way to synchronize the config sync group is to remove the offending instance from the config sync group.
+### Solution 1
 
-1. A more ideal approach is to modify the Config Sync Group configuration such that is compatible with both NGINX Plus and NGINX Open Source instances. Keep in mind that some NGINX Plus features - dynamic reconfiguration, API access, status monitoring, and other modules - are not compatible with NGINX Open Source.
+The most straight-forward way to synchronize the config sync group is to remove the offending instance from the config
+sync group.
+
+The NGINX OSS instances could have been added by mistake so we would confirm if this config sync group should have both
+NGINX Plus and NGINX OSS.
+
+### Solution 2
+
+Lets say the different NGINX OSS and NGINX Plus is expected to belong in the same config sync group.
+
+A more ideal approach here is to modify the Config Sync Group configuration such that is compatible with both NGINX Plus
+and NGINX Open Source instances. Keep in mind that some NGINX Plus features - dynamic reconfiguration, API access,
+status monitoring, and other modules - are not compatible with NGINX Open Source. In our case here, the *api* directive
+is not compatible with NGINX OSS.
+
+1. Open the text editor for your config sync group's configuration.
+
+1. Remove the following location that is not available on NGINX OSS.
+
+    ```nginx
+        location /api/ {
+        api write=on;
+        allow 127.0.0.1;
+        deny all;
+    }
+    ```
+
+1. Save and Publish the changes.
+
+1. Your Config Sync Group will go into *In Sync*.
 
 ---
 
 ## Lab Cleanup
 
-Time to clean up the resources you created in this lab. As a safety precaution, the NGINX One console will not allow you to delete an instance that is online. We will first have to shut down the instances before deleting them from the NGINX One console.
+Time to clean up the resources you created in this lab. As a safety precaution, the NGINX One console will not allow
+you to delete an instance that is online. We will first have to shut down the instances before deleting them from the
+NGINX One console.
 
 1. Click **Stop** on all the Docker instances displayed below:
 
@@ -191,6 +205,7 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -206,7 +221,7 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -222,7 +237,7 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-oss`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
@@ -238,7 +253,7 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
                 {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
                 {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
                 {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-oss`}
+                {name: "NGINX_AGENT_INSTANCE_GROUP", value: `${process.env["PETNAME"]}-fixit`}
             ]}
             attrs={[
                 { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
