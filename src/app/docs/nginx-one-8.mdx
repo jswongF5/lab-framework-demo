@@ -8,6 +8,15 @@ order: 7
 In this lab, you will be taking a look at a config sync group consisting of a mix of NGINX Plus and NGINX OSS instances.
 Follow the steps below to set up the lab environment:
 
+1. Enter the Data Plane Key in the *Set Variable* component below and click the **Save** button; this will allow the
+lab guide to use the key in further steps.
+
+:point_down: ***Note:** This is not a screenshot - it is an interactive component of the lab guide*.<br />
+
+    <InputVariable
+        name="NGINX_AGENT_SERVER_TOKEN"
+    />
+
 1. Based on what you have learned earlier, create a new Config Sync Group using your unique lab deployment name,
 **<GetVariable name="petname" />-fixit**.
 
@@ -130,10 +139,13 @@ Follow the steps below to set up the lab environment:
 ## Fix-It Lab
 
 Once the NGINX containers have been successfully added to your config sync group, your lab environment setup is
-complete. You will notice that the group will be out-of-sync and unable to resolve itself. Your objective is to find
-out why this is happening and resolve the issue.
+complete.
 
-![](media/lab7-1.png)
+A deployment team added a number of NGINX Instances in a Config Sync Group. After they've added them, the notice the
+group is *Out of Sync* and it is not resolving itself. You are being asked to determine what is wrong. Your objective is
+to find out why this is happening and resolve the issue. Below is an example screeshot of your config sync group.
+
+![](media/upskill/use-case-2/4.png)
 
 ---
 ## Solutions
