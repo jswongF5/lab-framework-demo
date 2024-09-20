@@ -1,3 +1,4 @@
+import React from "react";
 import { APICheck } from "@/app/components/api-check";
 import { APIHeaderCheck } from "@/app/components/api-header-check";
 import { APIResponseCheck } from "@/app/components/api-response-check";
@@ -32,12 +33,23 @@ const MDXComponents = {
   Collapsible,
   UdfDeploymentMetadata,
   SetVariable,
+  Collapsible,
   h1: (props) => <h1 id={formatId(props.children)} {...props} />,
   h2: (props) => <h2 id={formatId(props.children)} {...props} />,
   h3: (props) => <h3 id={formatId(props.children)} {...props} />,
   h4: (props) => <h4 id={formatId(props.children)} {...props} />,
-  code: (props) => <CodeBlock {...props} />,
-  img: (props) => <ImageModalClient {...props} />
+  pre: ({ children }) => (
+    <pre>
+      {React.Children.map(children, child => {
+        if (React.isValidElement(child)) {
+          return React.cloneElement(child, { isBlock: true });
+        }
+        return child;
+      })}
+    </pre>
+  ),
+  code: CodeBlock,
+  img: ImageModalClient
 }
 
 export default MDXComponents
