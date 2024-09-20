@@ -10,7 +10,7 @@ Go back [home](/).
 
 ## Test Docker Run
 <DockerContainer>
-    <Docker 
+    <Docker
         name="NGINX Plus Container 1"
         desc="NGINX Plus R32 is the latest release of NGINX Plus, the high-performance load balancer, web server, and API gateway. NGINX Plus R32 includes new features and enhancements that make it easier to use and more powerful than ever."
         image="private-registry.nginx.com/nginx-plus/agent:debian"
@@ -23,22 +23,22 @@ Go back [home](/).
         ]}
         port={{host: 55055, container: 80}}
     />
-    <Docker 
+    <Docker
         name="NGINX Plus Container 2"
         desc="NGINX Plus R32 is the latest release of NGINX Plus, the high-performance load balancer, web server, and API gateway. NGINX Plus R32 includes new features and enhancements that make it easier to use and more powerful than ever."
         image="private-registry.nginx.com/nginx-plus/agent:debian"
     />
-    <Docker 
+    <Docker
         name="NGINX Plus Container 3"
         desc="NGINX Plus R32 is the latest release of NGINX Plus, the high-performance load balancer, web server, and API gateway. NGINX Plus R32 includes new features and enhancements that make it easier to use and more powerful than ever."
         image="private-registry.nginx.com/nginx-plus/agent:debian"
     />
-    <Docker 
+    <Docker
         name="NGINX Plus Container 4"
         desc="NGINX Plus R32 is the latest release of NGINX Plus, the high-performance load balancer, web server, and API gateway. NGINX Plus R32 includes new features and enhancements that make it easier to use and more powerful than ever."
         image="private-registry.nginx.com/nginx-plus/agent:debian"
     />
-    <Docker 
+    <Docker
         name="NGINX Plus Container 5"
         desc="NGINX Plus R32 is the latest release of NGINX Plus, the high-performance load balancer, web server, and API gateway. NGINX Plus R32 includes new features and enhancements that make it easier to use and more powerful than ever."
         image="private-registry.nginx.com/nginx-plus/agent:debian"
@@ -46,7 +46,7 @@ Go back [home](/).
 </DockerContainer>
 
 ## Input Variable
-<InputVariable 
+<InputVariable
     name="test"
     value=""
 />
@@ -60,12 +60,12 @@ Test variable from LabInfo API: <GetVariable name="LabID" />
 ## API Test
 
 **Check Bad URL:**
-<APICheck 
+<APICheck
     url='http://host.docker.internal:55014'
 />
 
 **Check Bad Component:**
-<APICheck 
+<APICheck
     componentName='NGINX Plus Container 100'
 />
 
@@ -107,8 +107,8 @@ Test variable from LabInfo API: <GetVariable name="LabID" />
 
 ### Collapsible section
 
-<Collapsible title="Click here to expand" heading='h3'>
+<Collapsible title="Solution">
 
-Hidden content you can now see.
+Hidden content you can now see, such as the solution to your question.
 
 </Collapsible>
