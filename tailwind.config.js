@@ -7,7 +7,12 @@ module.exports = {
     "./src/lib/**/*.{js,ts,jsx,tsx,mdx}",
   ],
   theme: {
-    extend: {},
+    extend: {
+      colors: {
+        "solarized-light-gray": "#657b83",
+        "solarized-light-tan": "#fdf6e3",
+      },
+    },
   },
   plugins: [],
 };
