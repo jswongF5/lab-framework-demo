@@ -1,6 +1,6 @@
 ---
-title: Technical Upskill Session - NGINX One Console Introduction
-description: START HERE for the technical upskill content 
+title: (Technical) NGINX One Console Introduction
+description: START HERE for the technical upskill content
 order: 3
 ---
 
@@ -12,10 +12,10 @@ Welcome to the NGINX One Console Upskill Session.
 
 The goal of this upskill session are:
 
-1. NGINX One Console Architecture
+1. NGINX One Console Introduction
 1. Use Cases
    - Managing a fleet of NGINX Instances
-   - Managing a set of NGINX instances where they use a similar configuration
+   - Managing a set of NGINX instances using Config Sync Groups
 
 After the upskill sessions, you will be able to:
 
@@ -39,7 +39,7 @@ server capabilities, API gateway functionalities, and security features. The goa
 unparalleled performance, security, and scalability for modern applications, whether they are deployed in the cloud,
 on-premises, or in hybrid environments.
 
-NGINX One can be view as a whole package that includes all NGINX products such as NGINX Open Source, NGINX Plus, NGINX
+NGINX One can be view as a bundle that includes all NGINX products such as NGINX Open Source, NGINX Plus, NGINX
 Ingress Controller, etc. One product that falls under the **NGINX One** is **NGINX One Console**, which we are covering
 in this session.
 
@@ -89,10 +89,11 @@ The NGINX instances communicates with the NGINX One Console using an agent which
 during the onboarding process. The following table shows commination details to NGINX One Console. Any outgoing
 firewall rules must allow the following type of traffic from the instances.
 
-| Type     | Value |
-| -------- | ----- |
-| Port     | 443   |
-| Protocol | gRPC  |
+| Type     | Value                   |
+| -------- | ----------------------- |
+| Port     | 443                     |
+| Protocol | gRPC                    |
+| Hostname | agent.connect.nginx.com |
 
 There are also a total of 2 gRPC connections for the following type of traffic.
 
@@ -130,8 +131,7 @@ Portions of this session will involve bring up NGINX instance containers that ru
 
 ### Demo
 We start each use case session with the **Demo Lab** where the instructor will be the one sharing
-and driving the configuration of a use case. Participants, if they want, can follow along and run
-through the same set of demo labs using their running UDF lab environments.
+and driving the configuration of a use case. The only ask here is to watch the instructor do the demo.
 
 ### Interactive
 Next, participants join break out groups and be expected to complete the Interactive Lab.
@@ -147,7 +147,6 @@ We will now be covering the following use cases below.
 
 1. NGINX Instance Management
 1. NGINX Instance
-1. Exploring NGINX One Console Dashboard
 
 Now that you have a basic understanding of the NGINX One Console, lets move on to the next step where we will have some
 hand on experience.
