@@ -6,7 +6,7 @@ order: 6
 
 ## Use Case 1: Managing NGINX Instance Management Interactive lab
 
-Now lets continue to the interactive lab where you will be learn how to add NGINX instances to NGINX One Console.
+Now lets continue to the interactive lab where you will learn how to add NGINX instances to the NGINX One Console.
 
 ### Connecting to the Console
 
@@ -17,7 +17,7 @@ a new **Data Plane Key**, and use it to install the NGINX Agent on the NGINX Ins
 
 ### Generating a Data Plane Key
 
-1. From the NGINX One Console, in the left hand menu under the "Manage" section, select **Data Plane Keys**.
+1. From the NGINX One Console, in the left menu under the "Manage" section, select **Data Plane Keys**.
 
 1. Click **Add Data Plane Key**.
 
@@ -48,13 +48,11 @@ installed.  In this section we will install NGINX Agent and connect this instanc
 
 #### Installing NGINX Agent on NGINX OSS
 
-1. Connect to the "NGINX OSS" instance in UDF through the Web Shell access method by clicking the *Open Web Shell* button below:
-
-> TODO: ADD WebShell
+1. Go to your UDF Deployment and connect to the "NGINX OSS" system using the Web Shell access method.
 
 1. Because the hostname is used as the name of the instance in the NGINX One Console, you should change the hostname to
-something that identifies it as yours, such as **<GetVariable name="petname" />-ubuntu-oss**. Ensure that you are
-working on the NGINX OSS instance (default hostname ip-10.1.1.6), and run the following command.
+ **<GetVariable name="petname" />-ubuntu-oss**. Ensure that you are
+working on the NGINX OSS instance (default hostname **ip-10.1.1.6**), and run the following command.
 
     > **Note:** The bash prompt will continue to show the previous hostname unless you log out and log back in. This
     does not affect the lab.
@@ -72,8 +70,8 @@ working on the NGINX OSS instance (default hostname ip-10.1.1.6), and run the fo
     ![Instance](media/upskill/use-case-1/2.png)
 
 1. Because we created a **Data Plane Key** in the previous step, select **Use existing Key** ->
-provide your Data Plane Key from the previous step -> Ensure **Virtual Machine or Bare Metal** tab is selected -> Copy
-the example command by select the copy button.
+provide your Data Plane Key from the previous step -> ensure **Virtual Machine or Bare Metal** tab is selected -> copy
+the example command by selecting the copy button.
 
     ![Instance](media/upskill/use-case-1/3.png)
 
@@ -81,7 +79,7 @@ the example command by select the copy button.
 
     ![Instance](media/upskill/use-case-1/4.png)
 
-   The install script will install any necessary dependencies, and install the NGINX Agent with the appropriate settings for your system. You will see a warning about "stub_status" not being configured. You can ignore that warning.
+   The install script will install any necessary dependencies, and install the NGINX Agent with the appropriate settings for your system. You will see a warning about `stub_status` not being configured. You can ignore that warning.
 
 1. Return to the NGINX One console. From the left menu in the Manage section, click Instances. You should see your new instance in the list.
 
@@ -95,11 +93,11 @@ the example command by select the copy button.
 
     ![Instance Details](media/optional1-2.png)
 
-    Note that this instance has a different set of configuration recommendations than the vanilla NGINX Plus instance
-    did. Package maintainers may ship NGINX with their own sets of defaults, which may or may not align with best
+    Note that this instance has a different set of configuration recommendations than the vanilla NGINX Plus instance.
+    Package maintainers may ship NGINX with their own sets of defaults, which may or may not align with best
     practices. NGINX One Console provides a centralized view of such recommendations across the organization.
 
-1. You now successfully added an NGINX Open Source instance to NGINX One Console.
+1. You now successfully added an **NGINX Open Source** instance to **NGINX One Console**.
 
 #### Viewing logs
 
@@ -139,11 +137,11 @@ has NGINX Plus with the Agent. If you want to see a list of all NGINX Plus with 
 
 1. Open a Web Shell to the **Lab Framework** UDF instance and start an NGINX Plus container with the commands below.
 
-1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 so you can distinguish your
-NGINX container instance from others. Below is the *docker run* command outlined in Step 3 but with the following
-modifications.
+1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 of the NGINX One Console so you
+can distinguish your NGINX container instance from others. Below is the `docker run` command outlined in Step 3 of the
+NGINX One Console but with the following modifications.
     - A **hostname** and **name** is defined
-    - Replace YOUR_DATA_PLANE_KEY with your Data Plane Key.
+    - Replace `YOUR_DATA_PLANE_KEY` with your Data Plane Key.
 
     ```shell
     sudo docker run \
@@ -170,18 +168,18 @@ instructions.
 #### Viewing Logs
 
 Viewing logs from container instances are similar to virtual machines. The difference is you will need to view them
-from the NGINX instance container. The path to the NGINX agent logs are located at the same location as the virtual
-machine instance, **/var/log/nginx-agent**. Now let's take examine the logs by connecting to the container.
+from the NGINX container instance. The path to the NGINX agent logs are located at the same location as the virtual
+machine instance, **/var/log/nginx-agent**. Now let's examine the logs by connecting to the container.
 
-1. Start a Web Shell session to **Lab Framework**.
+1. Go to your UDF Deployment and start a Web Shell session to **Lab Framework**.
 
-1. Use the **more** command to display the NGINX agent logs.
+1. Use the **more** command to display the NGINX Agent logs.
 
     ``` bash
     docker exec {{petname}}-nginx-plus-manual more /var/log/nginx-agent/agent.log
     ```
 
-### Console Overview
+### Explore NGINX Instance console
 
 Now that we have set up our data plane key and deployed our NGINX instances we can take a look around the NGINX One Console:
 
@@ -190,6 +188,10 @@ Now that we have set up our data plane key and deployed our NGINX instances we c
 1. You should see your **<GetVariable name="nginx-plus-1" />** instance in the list, click on it to view the instance details.
 
     ![NGINX One Instance List](media/lab2-7.png)
+
+> The section below is meant to show more details, no actual "Solution" is hidden.
+
+<Collapsible title="Instance details">
 
 #### Explore the instance details
 
@@ -235,6 +237,9 @@ The NGINX One Console also provides various details about the NGINX instance suc
     | Registration Time | The time when the NGINX instance was registered |
     | Instance Type | The type of the NGINX instance |
 
+</Collapsible>
+
+
 ### Explore NGINX One dashboard
 
 The NGINX One Dashboard provides an at-a-glance view of metrics and findings about your global NGINX fleet.
@@ -246,6 +251,9 @@ You can navigate to the NGINX One Dashboard view by selecting *Dashboard* under 
 You now see a Dashboard view like the example shown below.
 
 ![Dashboard View](media/lab1-6.png)
+
+<Collapsible title="NGINX One Dashboard Details">
+
 
 This view provides the following metrics for all NGINX instances.
 
@@ -268,6 +276,8 @@ This view provides the following metrics for all NGINX instances.
 Clicking a detail line in any of these charts will let you drill-down and see the instances affected by that particular finding.
 
 ![NGINX Drilling Down View](media/lab1-7.png)
+
+</Collapsible>
 
 ---
 
@@ -459,7 +469,7 @@ You will see the Select the *default.conf* file from the file picker. Note the b
 
     ![Configuration Viewer](media/upskill/use-case-1/16.png)
 
-You have completed the interactive lab! Now lets proceed to clean up before proceeding to the Fix It Lab!
+You have completed the interactive lab! Now lets clean up before proceeding to the Fix It Lab!
 
 ## Lab Cleanup
 
@@ -496,18 +506,6 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
 
     ![Confirming the deletion](media/upskill/use-case-1/cleanup-2.png)
 
-1. From the NGINX One console, in the left-hand menu in the *Manage* section, select *Data Plane Keys*.
-
-1. Select the context menu for the Data Plane Key you created in lab 1, and select *Revoke*.
-
-    > :warning: **Warning:** Make sure you are revoking your own key and not someone else’s.
-
-    ![Revoking a Data Plane Key](media/cleanup-6.png)
-
-1. Confirm the revocation.
-
-    ![Confirming the revocation](media/cleanup-7.png)
-
 ## Conclusion
 
-The next lab will be a Fix It Lab. [Click here](nginx-one-7.mdx) to proceed to that lab.
+The next lab will be a Fix It Lab. [Click here](nginx-one-7.mdx) to proceed to that.

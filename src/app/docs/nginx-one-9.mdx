@@ -6,7 +6,7 @@ order: 9
 
 ## Use Case 2: Config Sync Group Interactive lab
 
-Now lets continue to the interactive lab where you will learn how to manage NGINX instances to NGINX One Console's
+Now let's continue to the interactive lab where you will learn how to manage NGINX instances to NGINX One Console's
 Config Sync Group.
 
 ### Creating a Config Sync Group
@@ -55,13 +55,14 @@ instance to the config sync group.
 1. If the instance is already managed by NGINX One Console, we manually update NGINX agent's config that defines the
 Config Sync Group name then restart the NGINX agent service.
 
-Documentation for both these methods can also be found from the Config Sync Group from the NGINX One Console.
+Documentation for both these methods can also be found by selecting **Add Instance to Config Sync Group** from your
+Config Sync Group.
 
 As we are using a fresh environment for this lab, **we will only use the first method** which will automatically
-register and add our NGINX Plus instances to the config sync group.
+register and add our NGINX Plus instances to the Config Sync Group.
 
-1. Open a Web Shell to your **NGINX Plus** component and run the command below to set a unique hostname for the NGINX
-One Console.
+1. From your UDF Deployment, open a Web Shell to your **NGINX Plus** component and run the command below to set a
+unique hostname for the NGINX One Console.
 
     ```bash
     sudo hostnamectl set-hostname {{petname}}-ubuntu-plus
@@ -102,11 +103,11 @@ Lets proceed to add a second NGINX instance.
 
 1. Open a Web Shell to the **Lab Framework** UDF instance and start an NGINX Plus container with the commands below.
 
-1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 so you can distinguish your
-NGINX container instance from others. Below is the *docker run* command outlined in Step 3 but with the following
-modifications.
+1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 of the NGINX One Console so you
+can distinguish your NGINX container instance from others. Below is the `docker run` command outlined in Step 3 of the
+NGINX One Console but with the following modifications.
     - A **hostname** and **name** is defined
-    - Replace YOUR_DATA_PLANE_KEY with your Data Plane Key.
+    - Replace `YOUR_DATA_PLANE_KEY` with your Data Plane Key.
 
     ```shell
     sudo docker run \
@@ -212,7 +213,7 @@ several instances simultaneously.
     ```bash
     tail -f /var/log/nginx-agent/agent.log
     ```
-1. Place both SSH windows side-by-side so you can observe them both simultaneously.
+1. Place both Web Shell windows side-by-side so you can observe them both simultaneously.
     ![](media/lab6-3.png)
 1. Navigate to your sync group's configuration tab. Here, you can make any valid edits to the Config Sync Group
 configuration that you wish. In this case, we will add the following simple comment at the top of the
@@ -309,7 +310,7 @@ the **demo.conf** file in a text editor of your choice.
 a yellow indicator with the text "**Sync In Progress**". After a few seconds, this indicator should turn green with the
 text **"In Sync"**.
 
-1. Now return to the SSH window for your NGINX Plus instance and re-open the **demo.conf** file. The location block we
+1. Now return to the Web Shell window for your NGINX Plus instance and re-open the **demo.conf** file. The location block we
 added earlier should have been removed entirely.
     ![](media/lab6-5.png)
 
@@ -322,6 +323,38 @@ changes, NGINX One will automatically override them and re-apply the Config Sync
 
 > :point_right: If a permanent configuration change needs to be made to a specific instance within a config sync group,
 the instance should be removed from a config sync group so that it can be managed individually.
+
+#### Removing NGINX Instances from Config Sync Group
+
+It is possible to remove NGINX instances from the Config Sync Group shown in the screenshot below. But doing this also
+removes the NGINX instance from being managed by NGINX One Console.
+
+![](media/upskill/use-case-2/5.png)
+
+Let's go through the steps of removing an NGINX Instance from an Config Sync Group but keep it so that it remains being
+managed by NGINX One Console.
+
+1. From your UDF Deployment, open a Web Shell to you **NGINX Plus** system.
+
+1. With your editor of choice, go to `/var/lib/nginx-agent/agent-dynamic.conf` and comment out the **instance_group**
+line. Then save you changes.
+
+    ![](media/upskill/use-case-2/6.png)
+
+1. Restart **nginx-agent**
+
+    ```bash
+    systemctl restart nginx-agent
+    ```
+
+1. On your NGINX One Console, your **<GetVariable name="petname" />-ubuntu-plus** instance will no longer be there.
+You may have to click on the **Refresh** button if you still you your NGINX Plus instance.
+
+    ![](media/upskill/use-case-2/7.png)
+
+> If you want to move an instance to a different Config Sync Group, you would change the value for `instance_group` in
+`/var/lib/nginx-agent/agent-dynamic.conf` instead of commenting it out. NOTE: this only works when you have a VM or
+baremetal instance.
 
 ---
 ### Review
@@ -362,7 +395,7 @@ NGINX One console.
 1. Wait until your **<GetVariable name="petname" />*** instances transition into the **Unavailable** state before
 proceeding. You may need to click the *Refresh* button at the top right of the instance list.
 
-    ![Instance Unavailable](media/cleanup-3.png)
+    ![Instance Unavailable](media/upskill/use-case-2/cleanup-1.png)
 
 1. For each of your **<GetVariable name="petname" />*** instances, select the *Actions* "..." context menu, and select
     *Delete*.

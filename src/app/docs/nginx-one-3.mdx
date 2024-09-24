@@ -19,11 +19,11 @@ The goals of this upskill session are:
 
 After the upskill sessions, you will be able to:
 
-1. Understanding of NGINX One Console
-1. Managing NGINX Instances from NGINX One Console
+1. Understand the NGINX One Console
+1. Manage NGINX Instances from the NGINX One Console
    - Managing per instance
    - Managing through Config Sync Group.
-1. Troubleshooting though logs
+1. Troubleshoot though logs
 
 ---
 
@@ -83,14 +83,20 @@ NGINX One Console is a service provided within F5 Distributed Cloud.
 
 The NGINX Instances are located in the customers environment.
 
-### How does NGINX Instances Connect to NGINX One?
+> :warning: **Note:** In order for customers to use the NGINX One Console, the NGINX Instances must have internet
+connectivity. If their security policies prohibits this, there is product similar to the NGINX One Console called
+[NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/nim/) that they can use within their environment. 
+This will keep NGINX instance traffic within their environment but also note that the NGINX Instance Manager will upload
+customer metrics to F5.
+
+### How does NGINX Instances connect to the NGINX One Console?
 
 The NGINX instances communicates with the NGINX One Console using an agent which is installed on the NGINX instance
 during the onboarding process.
 
 ![](media/upskill/presentation-2.png)
 
-The following table shows commination details to NGINX One Console. Any outgoing
+The following table shows connection details when the NGINX agent communicates to NGINX One Console. Any outgoing
 firewall rules must allow the following type of traffic from the instances.
 
 | Type     | Value                   |
@@ -110,9 +116,9 @@ There are also a total of 2 gRPC connections for the following type of traffic.
 
 In these sessions, we are breaking the labs into into the following sections below.
 
-- Demo: We will demonstrate the use case.
-- Interactive: You are expected configure and validate a use case.
-- Fix It: We will provide a broken configuration and you are expected to fix the issue.
+- Demo
+- Interactive
+- Fix It
 
 ### Environment
 
@@ -129,7 +135,7 @@ The **Lab Framework** contains the following
 - **docker** installed
 - this Lab Guide
 
-Portions of this session will involve bring up NGINX instance containers that run on the Lab Framework system.
+Portions of this session will involve bring up NGINX container instance that run on the **Lab Framework** system.
 
 ### Demo
 We start each use case session with the **Demo Lab** where the instructor will be the one sharing
@@ -140,7 +146,7 @@ Next, participants join break out groups and be expected to complete the Interac
 Participants may need to update configuration files in order to get a working solution.
 
 ### Fix it
-The last exercise of the upskilling session asks the participants to deploy a broken solution and
+The last portion will be the Fix It Lab where the participants are to deploy a broken solution and
 then using their validation and troubleshooting knowledge solve the mystery.
 
 ## Use Cases
@@ -153,7 +159,8 @@ We will now be covering the following use cases below.
 Now that you have a basic understanding of the NGINX One Console, let's move on to the next step where we will have some
 hand on experience.
 
-Lets now make sure you can access to an XC tenant. When you brought up this UDF Blueprint, it also provisions access to
-XC.
+## Up next
 
-[Click here](nginx-one-4.mdx) to proceed to the next part of this session where you will confirm this access.
+Let's now make sure you can access to the XC tenant, **f5-xc-lab-app**. When you brought up this UDF Blueprint, it also
+provisions your access to XC using the email address used for UDF. Let's confirm this on the next part of this session
+by [clicking here](nginx-one-4.mdx)

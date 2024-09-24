@@ -30,8 +30,8 @@ container image. We will be using this for this portion of this lab.
 ## Fix it
 
 Someone from the deployment team is trying to add an NGINX instance to NGINX One Console. The person is using an NGINX
-Plus container. And the command looks like it is the correct one that is provided from the NGINX One Console. But after
-waiting hours, the instance still is not showing up on the NGINX One Console.
+Plus container. The person thinks the command they copied looks correct. But after waiting hours, the instance still is
+not showing up on the NGINX One Console.
 
 You are being asked to take a look to find out why this NGINX instance isn't being added to the NGINX One Console and
 fix it.
@@ -58,7 +58,7 @@ Let's take a look at the NGINX agent logs. The logs can be examined by connectin
     > time="2024-09-17T22:47:39Z" level=error msg="Commander Channel Recv: error communicating with agent.connect.nginx.com:443, code=Unauthenticated, message=no autho
     > ````
 
-    We now highly suspect the Data Plane Key. Let's try to re-create this instance but this time, lets use the one we
+    We now highly suspect the Data Plane Key. Let's try to re-create this instance but this time, let's use the one we
     created in this lab.
 
 1. Delete the container and re-deploy with the data plane key you saved earlier.
@@ -89,24 +89,27 @@ Let's take a look at the NGINX agent logs. The logs can be examined by connectin
 
     ![Container Logs](media/lab8-2.png)
 
-1. Great, so far the agent logs look okay. Now nagivate back to NGINX One Console and look at the *Instances*. You
+1. Great, so far the agent logs look okay. Now navigate back to NGINX One Console and look at the *Instances*. You
 should now see your fixed instance here.
 
 </Collapsible>
 
-Great job! You now know where to start troubleshooting your NGINX instance not being able to connect to the NGINX One Console.
+Great job! You now know the starting point when you need to troubleshoot your NGINX instance.
 
 ## Lab Cleanup
 
-Time to clean up the resources you created in this lab. As a safety precaution, the NGINX One console will not allow you to delete an instance that is online. We will first have to shut down the instances before deleting them from the NGINX One console.
+Time to clean up the resources you created in this lab. As a safety precaution, the NGINX One console will not allow
+you to delete an instance that is online. We will first have to shut down the instances before deleting them from the
+NGINX One Console.
 
-1. For the Docker containers running NGINX run the commands below to stop and remove the container from the NGINX Plus instance in your UDF deployment.
+1. For the Docker containers running NGINX run the commands below to stop and remove the container on **Lab Framework**
+in your UDF deployment.
 
     ```bash
     docker rm -f {{petname}}-nginx-plus-fixit
     ```
 
-1. From the NGINX One console, in the left-hand menu in the *Manage* section, select *Instances*.
+1. From the NGINX One Console, in the left-hand menu in the *Manage* section, select *Instances*.
 
 1. Wait until your instance transitions into the **Unavailable** state before proceeding. You may need to click The
 *Refresh* button at the top right of the instance list.
@@ -119,6 +122,6 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
 
 ## Conclusion
 
-You have now completed the labs for the NGINX Instance Management use case.
+You have now completed the labs for the *Managing NGINX Instance using NGINX One Console* use case.
 
-Proceed to the next lab where we will do an [interactive lab using Config Sync Groups](nginx-one-7.mdx).
+Proceed to the next lab where we will go through [Config Sync Groups](nginx-one-8.mdx).
