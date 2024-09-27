@@ -26,7 +26,7 @@ Config Sync Group.
 1. Your unique Config Sync Group named **<GetVariable name="petname" />** should be in the list.
 
     ![New Config Sync Group](media/lab5-3.png)
-    
+
 1. You can now explore your Config Sync Group by selecting **<GetVariable name="petname" />**, where two tabs named
 *Details* and *Configuration* are present. On the *Details* tab, there are two sections: *Details* represents additional
 details of this group and *Instances* represents the NGINX instances that are in this group.
@@ -69,7 +69,7 @@ unique hostname for the NGINX One Console.
     ```
 
 1. Now navigate back to the NGINX One Console. Select *Config Sync Group* under the *Manage* section on the left, then
-select your config sync group, **<GetVariable name="petname" />**.
+select your Config Sync Groups, **<GetVariable name="petname" />**.
 
 1. In the *Instances* section, select *Add Instance to Config Sync Group*.
 
@@ -87,13 +87,16 @@ the "copy" icon to copy the content in the console.
     Once the installation has completed, the NGINX Instance will appear as an instance managed by your config sync
     group. If it doesn't immediately appear in the list, try clicking the refresh button.
 
-Lets proceed to add a second NGINX instance.
+Let's proceed to add a second NGINX instance.
 
-1. Go to *Instances* under *Manage* and click *Add Instance*.
+1. Navigate back to the NGINX One Console. Select *Config Sync Group* under the *Manage* section on the left, then
+select your Config Sync Groups, **<GetVariable name="petname" />**.
 
-1. Select *Use existing Key* because you already created one from earlier.
+1. In the *Instances* section, select *Add Instance to Config Sync Group*.
 
-1. Provide your Data Plane Key.
+1. In the new window, select *Register a new instance with NGINX One then add to config sync group* then select *Next*.
+
+1. Select *Use existing Key*, then provide the Data Plane Key you created at the beginning of this session.
 
 1. Select the *Docker Container* tab.
 
@@ -225,7 +228,7 @@ configuration that you wish. In this case, we will add the following simple comm
 
     The updated configuration should look similar to the example below. Note the location of the comment we made at
     the top:
-    
+
     ```nginx
     ## This is a config change made through the Config Sync Group.
     server {
