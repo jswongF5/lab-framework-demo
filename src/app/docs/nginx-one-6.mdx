@@ -123,24 +123,13 @@ container image. The container image we will use here is **private-registry.ngin
 has NGINX Plus with the Agent. If you want to see a list of all NGINX Plus with Agent tags, refer to the
 [documentation](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/#pulling-the-image).
 
-1. Go to *Instances* under *Manage* and click *Add Instance*.
-
-1. Select *Use existing Key* because you already created one from earlier.
-
-1. Provide your Data Plane Key.
-
-1. Select the *Docker Container* tab.
-
-    ![Add New NGINX Plus Container](media/lab5-17.png)
-
-    > **Note:** This system already cached the container image, so Steps 1 and 2 from above can be skipped.
-
 1. Open a Web Shell to the **Lab Framework** UDF instance and start an NGINX Plus container with the commands below.
 
-1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 of the NGINX One Console so you
-can distinguish your NGINX container instance from others. Below is the `docker run` command outlined in Step 3 of the
-NGINX One Console but with the following modifications.
-    - A **hostname** and **name** is defined
+1. We've provided the below `docker run` command that has been copied from the NGINX One Console UI because we are
+adding a couple `docker` options to help distinguish your NGINX instance here with others from this session. In
+addition to the originally provided command, we added two options that defines the container's `hostname` and `name`.
+
+    Also, be sure to:
     - Replace `YOUR_DATA_PLANE_KEY` with your Data Plane Key.
 
     ```shell
@@ -157,13 +146,40 @@ NGINX One Console but with the following modifications.
     -d private-registry.nginx.com/nginx-plus/agent:debian
     ```
 
-1. Return to your NGINX One Console. You may need to click *Done* to close the window with "Docker Container"
-instructions.
+> **NOTE:** If you encounter a error saying **docker** is not installed, confirm you are on the **Lab Framework** Web
+Shell.
+
+> **NOTE:** Additional details regarding how I got the `docker run` command above is detailed by clicking on the
+**Show** button below.
+
+<Collapsible title="NGINX One Console instructions for adding NGINX container instances">
+
+You do not need to run additional commands shown here. This box is meant to show how you would find the command to
+add an NGINX container instance.
+
+1. Go to *Instances* under *Manage* and click *Add Instance*.
+
+1. Select *Use existing Key* because you already created one from earlier.
+
+1. Provide your Data Plane Key.
+
+1. Select the *Docker Container* tab.
+
+    ![Add New NGINX Plus Container](media/lab5-17.png)
+
+    > **Note:** This system already cached the container image, so Steps 1 and 2 from above can be skipped in this
+    session.
+
+1. The command you see from **Step 3** from NGINX One Console is the `docker run` command you just ran. And if you
+notice, I added two options to set the `hostname` and `name` to the original one you see here.
+
+</Collapsible>
+
+1. Return to your NGINX One Console.
 
 1. From the left menu in the *Manage* section, click *Instances*. You should see your new instance in the list.
 
     ![New NGINX Plus Instance](media/upskill/use-case-1/7.png)
-
 
 #### Viewing Logs
 
@@ -189,7 +205,7 @@ Now that we have set up our data plane key and deployed our NGINX instances we c
 
     ![NGINX One Instance List](media/lab2-7.png)
 
-<Collapsible title="Instance details">
+<Collapsible title="Instance Dashboard Details">
 
 #### Explore the instance details
 
@@ -250,7 +266,7 @@ You now see a Dashboard view like the example shown below.
 
 ![Dashboard View](media/lab1-6.png)
 
-<Collapsible title="NGINX One Dashboard Details">
+<Collapsible title="NGINX One Console Dashboard Details">
 
 This view provides the following metrics for all NGINX instances.
 
@@ -502,6 +518,18 @@ Time to clean up the resources you created in this lab. As a safety precaution, 
 1. Confirm the deletion.
 
     ![Confirming the deletion](media/upskill/use-case-1/cleanup-2.png)
+
+## Summary
+
+You should now be able to:
+
+1. Add a VM NGINX instance
+1. Add a container NGINX instance
+1. View NGINX Agent logs
+1. Publish NGINX configuration changes from NGINX One Console to NGINX instance
+1. View the instance dashboard that includes Certificates, CVEs, and Config Recommendations.
+1. View the NGINX One Console dashboard for the entire NGINX fleet that includes Certificates, CVEs, Config
+Recommendations, Availability, NGINX Versions, and more
 
 ## Up next
 

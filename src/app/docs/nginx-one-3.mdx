@@ -85,9 +85,14 @@ The NGINX Instances are located in the customers environment.
 
 > :warning: **Note:** In order for customers to use the NGINX One Console, the NGINX Instances must have internet
 connectivity. If their security policies prohibits this, there is product similar to the NGINX One Console called
-[NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/nim/) that they can use within their environment.
+[NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/nim/) (NIM) that they can use within their environment.
 This will keep NGINX instance traffic within their environment but also note that the NGINX Instance Manager will upload
 customer metrics to F5.
+
+> NGINX Instance Manager is not in sustaining mode and has a dedicated development team with a roadmap. There was a
+product called NGINX Management Suite (NMS) which has NGINX Instance Manager built in. And NMS has moved to
+End-of-Support so any references to NIM being in sustaining or feature freeze is referring to NMS. Since then, NIM is
+decoupled from NMS.
 
 ### How does NGINX Instances connect to the NGINX One Console?
 
@@ -110,7 +115,21 @@ There are also a total of 2 gRPC connections for the following type of traffic.
 1. Control Plane
 1. Metrics Steam
 
+Now lets go into a little more detail of the process of the NGINX One Console, NGINX Agent, and NGINX.
+
+![](media/upskill/presentation-6.png)
+
+The NGINX Agent config is located in the following location on the NGINX Instance.
+1. `/etc/nginx-agent/nginx-agent.conf`
+1. `/var/lib/nginx-agent/agent-dynamic.conf`
+
+You can find additional details about the [NGINX Agent](https://docs.nginx.com/nginx-agent/overview/#how-it-works).
+
+**NOTE:** The functionality of the NGINX Agent here is the same as how it functions when installed on any other NGINX
+product.
+
 <br/>
+
 
 ## Upskill session layout
 

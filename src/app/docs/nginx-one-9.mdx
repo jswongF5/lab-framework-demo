@@ -87,29 +87,15 @@ the "copy" icon to copy the content in the console.
     Once the installation has completed, the NGINX Instance will appear as an instance managed by your config sync
     group. If it doesn't immediately appear in the list, try clicking the refresh button.
 
-Let's proceed to add a second NGINX instance.
-
-1. Navigate back to the NGINX One Console. Select *Config Sync Group* under the *Manage* section on the left, then
-select your Config Sync Groups, **<GetVariable name="petname" />**.
-
-1. In the *Instances* section, select *Add Instance to Config Sync Group*.
-
-1. In the new window, select *Register a new instance with NGINX One then add to config sync group* then select *Next*.
-
-1. Select *Use existing Key*, then provide the Data Plane Key you created at the beginning of this session.
-
-1. Select the *Docker Container* tab.
-
-    ![Add New NGINX Plus Container](media/lab5-17.png)
-
-    > **Note:** This system already cached the container image, so Steps 1 and 2 from above can be skipped.
+Let's proceed to add a second NGINX instance. This time, we will add an NGINX container instance.
 
 1. Open a Web Shell to the **Lab Framework** UDF instance and start an NGINX Plus container with the commands below.
 
-1. Because we are using a shared XC tenant, we will be modifying the command from Step 3 of the NGINX One Console so you
-can distinguish your NGINX container instance from others. Below is the `docker run` command outlined in Step 3 of the
-NGINX One Console but with the following modifications.
-    - A **hostname** and **name** is defined
+1. We've provided the below `docker run` command that has been copied from the NGINX One Console UI because we are
+adding a couple `docker` options to help distinguish your NGINX instance here with others from this session. In
+addition to the originally provided command, we added two options that defines the container's `hostname` and `name`.
+
+    Also, be sure to:
     - Replace `YOUR_DATA_PLANE_KEY` with your Data Plane Key.
 
     ```shell
@@ -126,7 +112,11 @@ NGINX One Console but with the following modifications.
     --env=NGINX_AGENT_SERVER_TOKEN=YOUR_DATA_PLANE_KEY \
     -d private-registry.nginx.com/nginx-plus/agent:debian
     ```
+    > **NOTE:** If you encounter a error saying **docker** is not installed, confirm you are on the **Lab Framework** Web
+    Shell.
 
+    > **NOTE:** Additional details regarding how I got the `docker run` command above is detailed by clicking on the
+    **Show** button below.
 
     Confirm that the NGINX Container is running using the following command:
     ```bash
@@ -135,7 +125,33 @@ NGINX One Console but with the following modifications.
 
     ![](media/lab6-1.png)
 
-    Once the installation has completed, the NGINX Plus container will appear as an instance managed by your config sync group. If it doesn't immediately appear in the list, try clicking the refresh button.
+<Collapsible title="NGINX One Console instructions for adding NGINX container instances">
+
+You do not need to run additional commands shown here. This box is meant to show how you would find the command to
+add an NGINX container instance.
+
+1. Navigate back to the NGINX One Console. Select *Config Sync Group* under the *Manage* section on the left, then
+select your Config Sync Groups, **<GetVariable name="petname" />**.
+
+1. In the *Instances* section, select *Add Instance to Config Sync Group*.
+
+1. In the new window, select *Register a new instance with NGINX One then add to config sync group* then select *Next*.
+
+1. Select *Use existing Key*, then provide the Data Plane Key you created at the beginning of this session.
+
+1. Select the *Docker Container* tab.
+
+    ![Add New NGINX Plus Container](media/lab5-17.png)
+
+    > **Note:** This system already cached the container image, so Steps 1 and 2 from above can be skipped in this
+    session.
+
+1. The command you see from **Step 3** from NGINX One Console is the `docker run` command you just ran. And if you
+notice, I added two options to set the `hostname` and `name` to the original one you see here.
+
+</Collapsible>
+
+Once the installation has completed, the NGINX Plus container will appear as an instance managed by your config sync group. If it doesn't immediately appear in the list, try clicking the refresh button.
 
 Your config sync group should now be populated by two NGINX Plus instances: one VM and one running Docker container.
 
@@ -420,6 +436,17 @@ proceeding. You may need to click the *Refresh* button at the top right of the i
 1. Confirm the deletion.
 
     ![Confirming the deletion](media/cleanup-9.png)
+
+## Summary
+
+You should now be able to:
+
+1. Add a VM NGINX instance to a Config Sync Group
+1. Add a container NGINX instance to a Config Sync Group
+1. Publish NGINX configuration changes on the Config Sync Group
+1. Watch NGINX Agent logs as you update Config Sync Group's config
+1. Observe results when you try to change the NGINX config on the NGINX instance itself
+1. Removing NGINX instances from Config Sync Group
 
 ## Up next
 
