@@ -139,7 +139,6 @@ addition to the originally provided command, we added two options that defines t
     --env=NGINX_AGENT_SERVER_GRPCPORT=443 \
     --env=NGINX_AGENT_SERVER_HOST=agent.connect.nginx.com \
     --env=NGINX_AGENT_TLS_ENABLE=true \
-    --env=NGINX_AGENT_TLS_SKIP_VERIFY=false \
     --restart=always \
     --runtime=runc \
     --env=NGINX_AGENT_SERVER_TOKEN=YOUR_DATA_PLANE_KEY \
@@ -154,8 +153,8 @@ Shell.
 
 <Collapsible title="NGINX One Console instructions for adding NGINX container instances">
 
-You do not need to run additional commands shown here. This box is meant to show how you would find the command to
-add an NGINX container instance.
+> :warning: **NO ACTION NEEDED.** You do not need to run additional commands shown here. This box is meant to show how
+you would find the command to add an NGINX container instance.
 
 1. Go to *Instances* under *Manage* and click *Add Instance*.
 
@@ -408,6 +407,9 @@ skipping though each config detail.
         targetStatusCode={200}
     />
 
+    > The above is equivalent to running `curl http://10.1.1.6/nginx_status` on the **Lab Framework** system where
+    **10.1.1.6** corresponds to the NGINX OSS system.
+
 1. You can also check using the HTTP page by going to the **NGINX OSS** UDF System -> selecting **ACCESS** ->
 selecting **NGINX HTTP**.
 
@@ -465,18 +467,17 @@ You will see the Select the *default.conf* file from the file picker. Note the b
         ssl_protocols TLSv1.2 TLSv1.3;
         ```
 
-1. Now lets go ahead and do a quick check to make sure HTTPS is working for your
-**<GetVariable name="petname" />-ubuntu-oss** NGINX instance.
-
-1. Check your work:<br />&nbsp;<br />To check that the <GetVariable name="nginx-plus-1" /> instance is now listening on 443 click the *Check* button below.
+1. Check that the *stub_status* module is working with **TLS enabled** by clicking the *Check* button below.
 
     <APICheck
         url="https://10.1.1.6"
         path="/nginx_status"
         targetStatusCode={200}
         tlsComponent={true}
-
     />
+
+    > The above is equivalent to running `curl -k https://10.1.1.6/nginx_status` on the **Lab Framework** system where
+    **10.1.1.6** corresponds to the NGINX OSS system.
 
 1. You can also check HTTPS from UDF. Find your **NGINX OSS** System -> Select **ACCESS** -> Select **NGINX HTTPS**.
 

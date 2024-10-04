@@ -105,7 +105,6 @@ addition to the originally provided command, we added two options that defines t
     --env=NGINX_AGENT_SERVER_GRPCPORT=443 \
     --env=NGINX_AGENT_SERVER_HOST=agent.connect.nginx.com \
     --env=NGINX_AGENT_TLS_ENABLE=true \
-    --env=NGINX_AGENT_TLS_SKIP_VERIFY=false \
     --env=NGINX_AGENT_INSTANCE_GROUP={{petname}} \
     --restart=always \
     --runtime=runc \
@@ -127,8 +126,8 @@ addition to the originally provided command, we added two options that defines t
 
 <Collapsible title="NGINX One Console instructions for adding NGINX container instances">
 
-You do not need to run additional commands shown here. This box is meant to show how you would find the command to
-add an NGINX container instance.
+> :warning: **NO ACTION NEEDED.** You do not need to run additional commands shown here. This box is meant to show how
+you would find the command to add an NGINX container instance.
 
 1. Navigate back to the NGINX One Console. Select *Config Sync Group* under the *Manage* section on the left, then
 select your Config Sync Groups, **<GetVariable name="petname" />**.
@@ -367,13 +366,13 @@ line. Then save you changes.
     ```
 
 1. On your NGINX One Console, your **<GetVariable name="petname" />-ubuntu-plus** instance will no longer be there.
-You may have to click on the **Refresh** button if you still you your NGINX Plus instance.
+You may have to click on the **Refresh** button.
 
     ![](media/upskill/use-case-2/7.png)
 
 > If you want to move an instance to a different Config Sync Group, you would change the value for `instance_group` in
 `/var/lib/nginx-agent/agent-dynamic.conf` instead of commenting it out. NOTE: this only works when you have a VM or
-baremetal instance.
+bare metal instance.
 
 ---
 ### Review
@@ -429,9 +428,9 @@ proceeding. You may need to click the *Refresh* button at the top right of the i
 
 1. From the NGINX One console, in the left-hand menu in the *Manage* section, select *Config Sync Groups*.
 
-1. Delete your **<GetVariable name="petname" />*** Config Sync Groups by selecting the *Actions* "..." context menu, then select *Delete* for each.
+1. Delete your **<GetVariable name="petname" />** Config Sync Groups by selecting the *Actions* "..." context menu, then select *Delete* for each.
 
-    ![Delete Config Sync Group](media/cleanup-8.png)
+    ![Delete Config Sync Group](media/upskill/use-case-2/cleanup-2.png)
 
 1. Confirm the deletion.
 

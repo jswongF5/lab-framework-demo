@@ -156,7 +156,7 @@ message from one of the NGINX OSS instances.
 
 ![](media/upskill/use-case-2/3.png)
 
-> Note the line **"unknown directive "api" in /etc/nginx/conf.d/demo.conf:23"**.
+> Note the line `unknown directive "api" in /etc/nginx/conf.d/default.conf:13`.
 
 The NGINX OSS does not have the *api* directive.
 
@@ -164,15 +164,18 @@ Here are two ways to resolve this situation:
 
 ### Solution 1
 
-The most straight-forward way to synchronize the config sync group is to remove the offending instance from the config
+The NGINX OSS instances could have been added by mistake so we would ask the deployment team to confirm if this config
+sync group should have both NGINX Plus and NGINX OSS.
+
+- The most straight-forward way to synchronize the config sync group is to remove the offending instance from the config
 sync group.
 
-The NGINX OSS instances could have been added by mistake so we would confirm if this config sync group should have both
-NGINX Plus and NGINX OSS.
+- It could also be possible the NGINX OSS instances belong to a Config Sync Group but it was not intended to be mixed with
+the NGINX Plus instances. If this was the case, then these instances would need to be moved to the correct group.
 
 ### Solution 2
 
-Lets say the different NGINX OSS and NGINX Plus is expected to belong in the same config sync group.
+Let's say the different NGINX OSS and NGINX Plus is expected to belong in the same Config Sync Group.
 
 A more ideal approach here is to modify the Config Sync Group configuration such that is compatible with both NGINX Plus
 and NGINX Open Source instances. Keep in mind that some NGINX Plus features - dynamic reconfiguration, API access,
