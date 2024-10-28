@@ -1,37 +1,134 @@
 ---
-title: (Technical) Use Case 1
-description: Overview of managing NGINX Instances Use Case
+title: Use Case 1 Fix It Lab
+description: Managing NGINX Instances Fix It Lab
 order: 5
 ---
 
-## Use Case 1: Managing NGINX Instance with NGINX One Console
+## Introduction
 
-This lab will detail the use case of managing NGINX Instances from the NGINX One Console. Below is a system diagram
-showing this interaction.
+Welcome to the Fix It Lab. We will be trying to add an NGINX instance to NGINX One Console. A command will be provided
+but you don't need to focus much on the command itself. The point of it is to get something in a broken state. And your
+goal will be to look for evidence as to why it is in a broken state.
 
-![](media/upskill/presentation-4.png)
+The **Lab Framework** from the UDF environment has **docker** installed and is setup so it can run an NGINX Plus
+container image. We will be using this for this portion of this lab.
 
-## Lab Introduction
+1. Open a Web Shell to the **Lab Framework** UDF system and start an NGINX Plus container with the commands below.
 
-We will give you an overview of how the NGINX One Console provides visibility into a global fleet of NGINX instances,
-both NGINX Plus and NGINX Open Source (OSS).
+    ```shell
+    docker run --hostname={{petname}}-nginx-plus-fixit --name={{petname}}-nginx-plus-fixit \
+    --env=NGINX_AGENT_SERVER_GRPCPORT=443 \
+    --env=NGINX_AGENT_SERVER_HOST=agent.connect.nginx.com \
+    --env=NGINX_AGENT_SERVER_TOKEN="abc2jcK8Fm1yQItpXZv0zks1KKQUXmJzJMkjButWAOY=" \
+    --env=NGINX_AGENT_TLS_ENABLE=true \
+    --restart=always \
+    --runtime=runc \
+    -d private-registry.nginx.com/nginx-plus/agent:debian
+    ```
 
-After this lab, you will be able to:
+## Fix it
 
-- Install the NGINX Agent on both NGINX Plus and NGINX OSS instances
-- Manage and update NGINX configuration from NGINX One Console
-  - Publish changes
-  - Enable TLS
-- Review recommendations from the NGINX One Console
+Someone from the deployment team is trying to add an NGINX instance to NGINX One Console. The person is using an NGINX
+Plus container. The person thinks the command they copied looks correct. But after waiting hours, the instance still is
+not showing up on the NGINX One Console.
 
-> Tip: Clicking on any image in this lab guide lab will enlarge it. To dismiss the enlarged image, click the white "X"
-in its window, or press the Escape key.
+You are being asked to take a look to find out why this NGINX instance isn't being added to the NGINX One Console and
+fix it.
 
-## Demo
+Use you troubleshooting knowledge to determine the root cause.
 
-Watch me go through a demo where I will be adding an NGINX instance then updating the configuration using the NGINX One
-Console.
+<Collapsible title="Solution">
+
+Let's take a look at the NGINX agent logs. The logs can be examined by connecting to the container.
+
+1. Start a Web Shell for the ***Lab Framework** system. You can view the logs by running the command below.
+
+    ``` bash
+    docker exec -it {{petname}}-nginx-plus-fixit more /var/log/nginx-agent/agent.log
+    ```
+
+1. Looking at the logs we see that there is authentication issue and the container is unable to communicate with
+**agent.connect.nginx.com:443**.
+
+    ![Container Logs](media/lab8-1.png)
+
+    > Notice log messages with the word **Unauthenticated**.
+    > ````shell
+    > time="2024-09-17T22:47:39Z" level=error msg="Commander Channel Recv: error communicating with agent.connect.nginx.com:443, code=Unauthenticated, message=no autho
+    > ````
+
+    We now highly suspect the Data Plane Key. Let's try to re-create this instance but this time, let's use the one we
+    created in this lab.
+
+1. Delete the container and re-deploy with the data plane key you saved earlier.
+
+    > **Note:** Use your existing data plane key if you still have a valid one, if not then generate a new one.
+
+    ```bash
+    docker rm -f {{petname}}-nginx-plus-fixit
+    ```
+
+    ```bash
+    sudo docker run --hostname={{petname}}-nginx-plus-fixit --name={{petname}}-nginx-plus-fixit \
+    --env=NGINX_AGENT_SERVER_GRPCPORT=443 \
+    --env=NGINX_AGENT_SERVER_HOST=agent.connect.nginx.com \
+    --env=NGINX_AGENT_TLS_ENABLE=true \
+    --restart=always \
+    --runtime=runc \
+    --env=NGINX_AGENT_SERVER_TOKEN=YOUR_DATA_PLANE_KEY \
+    -d private-registry.nginx.com/nginx-plus/agent:debian
+    ```
+
+1.  Now let's go look at the agent logs to confirm if we still see the continual **Unauthenticated** lines.
+
+    ``` bash
+    docker exec -it {{petname}}-nginx-plus-fixit more /var/log/nginx-agent/agent.log
+    ```
+
+    ![Container Logs](media/lab8-2.png)
+
+1. Great, so far the agent logs look okay. Now navigate back to NGINX One Console and look at the *Instances*. You
+should now see your fixed instance here.
+
+</Collapsible>
+
+Great job! You now know the starting point when you need to troubleshoot your NGINX instance.
+
+## Lab Cleanup
+
+Time to clean up the resources you created in this lab. As a safety precaution, the NGINX One console will not allow
+you to delete an instance that is online. We will first have to shut down the instances before deleting them from the
+NGINX One Console.
+
+1. For the Docker containers running NGINX run the commands below to stop and remove the container on **Lab Framework**
+in your UDF deployment.
+
+    ```bash
+    docker rm -f {{petname}}-nginx-plus-fixit
+    ```
+
+1. From the NGINX One Console, in the left-hand menu in the *Manage* section, select *Instances*.
+
+1. Wait until your instance transitions into the **Unavailable** state before proceeding. You may need to click The
+*Refresh* button at the top right of the instance list.
+
+1. Find your instance, select the *Actions* "..." context menu, and select *Delete*.
+
+    > :warning: **Warning:** Make sure you are deleting your own instances and not someone else’s.
+
+1. Select *Delete* to confirm.
+
+## Summary
+
+You should now be able to:
+
+1. View logs on NGINX instance when troubleshooting
+
+The goal of this Fix It lab is to get you comfortable finding and looking at logs on the NGINX instance when there are
+issues with this instance and NGINX One Console.
 
 ## Up next
 
-Lets now proceed to the [Interactive Lab](nginx-one-6.mdx).
+You have now completed the labs for the *Managing NGINX Instances using NGINX One Console* use case.
+
+Let's proceed to the next use case where we will go through [Config Sync Groups](nginx-one-6.mdx).

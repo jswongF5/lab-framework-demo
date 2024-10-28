@@ -1,20 +1,70 @@
 ---
-title: NGINX One Console Lab - Part 1
-description: Getting console access, starting the lab
+title: NGINX One Console Introduction
+description: Introduction for the technical upskill session
 order: 1
 ---
 
-## What is NGINX One?
+## Welcome
 
-NGINX One is an all-in-one platform that integrates the best of NGINX’s offerings into a unified package that includes a cloud-based dashboard and access to [F5 Distributed Cloud](https://www.f5.com/cloud). Customers get advanced load balancing, web and application server capabilities, API gateway functionalities, and security features. The goal of NGINX One is to provide unparalleled performance, security, and scalability for modern applications, whether they are deployed in the cloud, on-premises, or in hybrid environments.
+Welcome to the NGINX One Console Upskill Session.
 
-## NGINX One Console
+### Agenda
 
-NGINX One Console gives all NGINX users access to a SaaS experience for managing NGINX instances as part of the F5 Distributed Cloud. It gives NGINX users unrivaled visibility, delivery and optimization capabilities combined with the speed and flexibility of the F5 Distributed Cloud Platform.
+The goals of this upskill session are:
 
-The NGINX One Console is valuable because it simplifies the complexities of modern application delivery by integrating multiple functionalities into a single platform. This reduces the need for disparate tools, lowers operational overhead and costs, and ensures robust security for your applications. Additionally, its comprehensive feature set—including advanced load balancing, enhanced security, and performance optimization—provides customers with a reliable, scalable, and secure solution for managing their applications.
+1. NGINX One Console Introduction
+1. Use Cases
+   - Managing a fleet of NGINX Instances
+   - Managing a set of NGINX instances using Config Sync Groups
 
-You will be able to accelerate application delivery and time-to-value like never before with flexible pricing and SaaS capabilities.
+---
+
+## NGINX One Console introduction
+
+This lab will give you an overview of how the NGINX One console provides visibility into a global fleet of NGINX
+instances, both NGINX Plus and NGINX Open Source (OSS).
+
+After the upskill sessions, you will be able to:
+
+1. Understand, access, and navigate the NGINX One Console
+1. Manage NGINX Instances from the NGINX One Console
+   - Managing per instance
+   - Managing through Config Sync Group.
+1. Review recommendations from the NGINX One Console
+1. Troubleshoot though logs
+
+Before we go into NGINX One Console, lets take a step back and understand **NGINX One**.
+
+### What is NGINX One?
+
+NGINX One is an all-in-one platform that integrates the best of NGINX’s offerings into a unified package that includes a
+cloud-based dashboard and access to F5 Distributed Cloud. Customers get advanced load balancing, web and application
+server capabilities, API gateway functionalities, and security features. The goal of NGINX One is to provide
+unparalleled performance, security, and scalability for modern applications, whether they are deployed in the cloud,
+on-premises, or in hybrid environments.
+
+NGINX One can be view as a bundle that includes all NGINX products such as NGINX Open Source, NGINX Plus, NGINX
+Ingress Controller, etc. One product that falls under the **NGINX One** is **NGINX One Console**, which we are covering
+in this session.
+
+<br/>
+
+### NGINX One Console
+
+Although the name **NGINX One** sounds very similar to **NGINX One Console**, it is actually a
+Software as a Service (SaaS) product. So try not to use **NGINX One** and **NGINX One Console** interchangeably because
+they are different. The NGINX One Console gives all NGINX users access to a SaaS experience for managing NGINX instances
+as part of the F5 Distributed Cloud. It gives NGINX users unrivaled visibility, delivery and optimization capabilities
+combined with the speed and flexibility of the F5 Distributed Cloud Platform.
+
+The NGINX One Console is valuable because it simplifies the complexities of modern application delivery by integrating
+multiple functionalities into a single platform. This reduces the need for disparate tools, lowers operational overhead
+and costs, and ensures robust security for your applications. Additionally, its comprehensive feature set—including
+advanced load balancing, enhanced security, and performance optimization—provides customers with a reliable, scalable,
+and secure solution for managing their applications.
+
+You will be able to accelerate application delivery and time-to-value like never before with flexible pricing and SaaS
+capabilities.
 
 With NGINX One Console, you will get improved:
 
@@ -22,179 +72,128 @@ With NGINX One Console, you will get improved:
 - Visibility and insight
 - Security and control
 
-## Lab Introduction
+<br/>
 
-This lab will give you an overview of how the NGINX One console provides visibility into a global fleet of NGINX instances, both NGINX Plus and NGINX Open Source (OSS).
+### Prerequisites
 
-After this lab, you will be able to:
-
-- Access and navigate the NGINX One console
-- Manage NGINX configuration
-- Review recommendations from the NGINX One console
-- Setup Config Sync Groups
-- Install the NGINX Agent on both NGINX Plus and NGINX OSS instances (optional)
-
-## Prerequisites
-
-The "NGINX One Enablement Lab" UDF blueprint contains all the prerequisites for this lab. This includes:
+The "SDE NGINX One Console Upskilling" UDF blueprint contains all the prerequisites for this lab. This includes:
 
 - This interactive lab guide
 - NGINX Plus and NGINX OSS instances
 - F5 XC [lab tenant](https://f5-xc-lab-app.console.ves.volterra.io) access
 
-> Tip: Clicking on any image in this lab guide lab will enlarge it. To dismiss the enlarged image, click the white "X" in its window, or press the Escape key.
+> Tip: Clicking on any image in this lab guide lab will enlarge it. To dismiss the enlarged image, click the white "X"
+in its window, or press the Escape key.
 
-## F5 Distributed Cloud Tenant Access
+### System outline
 
-Once you join the UDF session, your UDF deployment will start and create an ephemeral account on the F5 Distributed Cloud console (this may take 5-10min).
+Let's now go through a system diagram of how other NGINX products interacts with NGINX One Console.
 
-1. Once your ephemeral account is created, you will receive an email to set or update your password. Click the **Update Password** link in the email. Check the spam folder for the account used to register with UDF if you can't find the email.
+![](media/upskill/presentation-1.png)
 
-    ![XC Console Email](media/lab0-01.png)
+The diagram shows all NGINX products in a customer's environment but this session focuses on NGINX Open Source and NGINX
+Plus being managed by NGINX One Console.
 
-1. Update your password. Click **Submit**.
+NGINX One Console is a service provided within F5 Distributed Cloud.
 
-    ![image](media/lab0-02.png)
+The NGINX Instances are located in the customers environment.
 
-1. Click **Log In**.
+> :warning: **Note:** In order for customers to use the NGINX One Console, the NGINX Instances must have internet
+connectivity. If their security policies prohibits this, there is product similar to the NGINX One Console called
+[NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/nim/) (NIM) that they can use within their environment.
+This will keep NGINX instance traffic within their environment but also note that the NGINX Instance Manager will upload
+customer metrics to F5.
 
-    ![image](media/lab0-03.png)
+> NGINX Instance Manager is not in sustaining mode and has a dedicated development team with a roadmap. There was a
+product called NGINX Management Suite (NMS) which has NGINX Instance Manager built in. And NMS has moved to
+End-of-Support so any references to NIM being in sustaining or feature freeze is referring to NMS. Since then, NIM is
+decoupled from NMS.
 
-1. Once redirected to the F5 Distributed Cloud console login, enter the lab tenant name (*f5-xc-lab-app*), and click **Next**. Enter your email and password and click **Sign in**.
+### How does NGINX Instances connect to the NGINX One Console?
 
-    ![image](media/lab0-11.png)
-    ![image](media/lab0-10.png)
+The NGINX instances communicates with the NGINX One Console using an agent which is installed on the NGINX instance
+during the onboarding process.
 
-1. Check the radio box and click **Accept and Agree** after reviewing terms.
+![](media/upskill/presentation-2.png)
 
-    ![image](media/lab0-05.png)
+The following table shows connection details when the NGINX agent communicates to NGINX One Console. Any outgoing
+firewall rules must allow the following type of traffic from the instances.
 
-1. F5 XC console "persona" and the "skill level" settings dictate how services and configuration options are presented to the user. These settings are currently not applicable to the NGINX One console. Make any valid selection for each dialog. Click **Next** or **Get Started** depending on the dialog.
+| Type     | Value                   |
+| -------- | ----------------------- |
+| Port     | 443                     |
+| Protocol | gRPC                    |
+| Hostname | agent.connect.nginx.com |
 
-    ![image](media/lab0-06.png)
+There are also a total of 2 gRPC connections for the following type of traffic.
 
-    ![image](media/lab0-07.png)
+1. Control Plane
+1. Metrics Steam
 
-1. Several **Guidance ToolTips** might appear. These are used to inform users of new features when the F5 XC console is updated. Close the dialogues and continue.
+Now lets go into a little more detail of the process of the NGINX One Console, NGINX Agent, and NGINX.
 
-## Accessing NGINX One Console
+![](media/upskill/presentation-6.png)
 
-Once logged into the F5 XC console, the "home" screen shows you various tiles which represent console features. For example, you might configure Multicloud networking from the "Multi-Cloud Network Connect" tile, build global server load balancing rules from the "DNS Management" tile, or view synthetic monitoring data from the "Observability" tile. In this lab, we'll focus on the NGINX One console.
+The NGINX Agent config is located in the following location on the NGINX Instance.
+1. `/etc/nginx-agent/nginx-agent.conf`
+1. `/var/lib/nginx-agent/agent-dynamic.conf`
 
-    > :point_right: **Note:** Your permissions in the F5 XC console are specific to this lab. You don't have permissions to all the tiles on the "home" screen.
+You can find additional details about the [NGINX Agent](https://docs.nginx.com/nginx-agent/overview/#how-it-works).
 
-1. Click the **NGINX One** tile from the home screen.
+**NOTE:** The functionality of the NGINX Agent here is the same as how it functions when installed on any other NGINX
+product.
 
-    ![NGINX One in the XC Console](media/lab1-1.png)
+<br/>
 
-1. The NGINX One "welcome" screen will appear. Click **Visit Service** to proceed to the NGINX One console.
+## Upskill session layout
 
-    ![The NGINX One Welcome Screen](media/lab1-2.png)
+In these sessions, we are breaking the labs into into the following sections below.
 
-1. The NGINX One Dashboard shows an overview of your environment, including availability, platform and version distribution, and CVEs/configuration recommendations. Your dashboard will vary depending on what is installed in your tenant. Feel free to click around and explore.
+- Demo
+- Interactive
+- Fix It
 
-    ![NGINX One Dashboard](media/lab1-3.png)
+### Demo
+We start each use case session with the **Demo Lab** where the instructor will be the one sharing
+and driving the configuration of a use case. The only ask here is to watch the instructor do the demo.
 
-1. In the left-hand menu in the *Manage* section is the *Instances* link. You may or may not have any existing instances in your tenant. Don’t worry if there aren’t any, you will be deploying two instances later in the lab. If there are any existing instances, click an instance’s hostname to view its details.
+### Interactive
+Next, participants join break out groups and be expected to complete the Interactive Lab.
+Participants may need to update configuration files in order to get a working solution.
 
-    ![NGINX One instance details](media/lab1-4.png)
+### Fix it
+The last portion will be the Fix It Lab where the participants are to deploy a broken solution and
+then using their validation and troubleshooting knowledge solve the mystery.
 
-## Connecting to the Console
+### Environment
 
-NGINX One uses an agent installed alongside NGINX to communicate with the NGINX One service.
+The diagram of the lab environment is shown in below.
 
-![There are two instances in the customer environment: one Plus and one OSS. An additional NGINX Agent is installed alongside NGINX in each instance, and the Agent communicates between the NGINX instance and the NGINX One service.](media/lab2-1.png)
+![](media/upskill/presentation-3.png)
 
-The agent uses a Data Plane Key to authenticate and identify itself to NGINX One. In this lab we will create a new Data Plane Key, and use it to install the NGINX Agent on the NGINX Plus instance.
+A total of 3 systems will be available.
+1. Lab Framework
+1. NGINX Plus Instance
+1. NGINX Open Source Instance
 
-### Generating a Data Plane Key
+The **Lab Framework** contains the following
+- **docker** installed
+- this Lab Guide
 
-As you continue through this lab, you will be using a randomly-generated name that you will use to create items in the NGINX One console.<br/>Your assigned name is: **<GetVariable name="petname" />**<br />
-You will notice it appear throughout the lab guide content. The use of this name is *crucial* when creating objects in the NGINX One Console in order to differentiate your items from those of other students also working in this shared environment.
+Portions of this session will involve bring up NGINX container instance that run on the **Lab Framework** system.
 
-1. From the NGINX One console, in the left hand menu under the "Manage" section, select **Data Plane Keys**.
+## Use Cases
 
-1. Click **Add Data Plane Key**.
+We will now be covering the following use cases below.
 
-1. Give the key a name based on your lab's ephemeral name, such as **<GetVariable name="petname" />-nginx-key**
+1. Managing NGINX Instances via NGINX One Console
+1. Managing NGINX Instance using Config Sync Groups
 
-    > :point_right: **Note:** You are working in a shared environment; keep track of your resources, and be careful not to accidentally modify anyone else's.
+Now that you have a basic understanding of the NGINX One Console, let's move on to the next step where we will have some
+hand on experience.
 
-1. By default, the key expiration date will be set to 1 year.  Depending on your use case, you may want to set a shorter expiration date.  For this lab, we will use the default value.
+## Up next
 
-1. Click **Generate**.
-
-    ![Generating a Data Plane Key](media/lab2-4.png)
-
-1. The Data Plane Key will be displayed. Click the *Copy* icon to copy the key to the clipboard.
-
-    > :warning: **Warning:** *SAVE THIS KEY SOMEWHERE SAFE.* There is no way to retrieve the key after you click **close**. This key will be used in multiple labs.
-
-    ![Data Plane Key](media/lab2-5.png)
-
-1. Now enter the Data Plane Key in the *Set Variable* component below and click the **Save** button; this will allow the lab guide to use the key in further steps.
-
-:point_down: ***Note:** This is not a screenshot - it is an interactive component of the lab guide*.<br />
-
-    <InputVariable 
-        name="NGINX_AGENT_SERVER_TOKEN"
-    />
-
-### Deploy NGINX Container
-
-Now that we have a data plane key, we can attach our first NGINX instance to the NGINX One Console.
-
-    > **Note:** This lab will focus more on the NGINX One Console and less on how to install NGINX Agent on your NGINX instance and connect the instance to NGINX One.  If this is something you would like to explore in greater depth, check out the optional labs at the end of this lab guide.
-
-1. To start your NGINX instance, click the **Run** button in this lab guide to deploy and have it automatically connect to the NGINX One Console:
-
-    <DockerContainer>
-        <Docker  
-            name="nginx-plus-1"
-            desc="NGINX Plus R32 with Agent."
-            image="private-registry.nginx.com/nginx-plus/agent:debian"
-            env={[
-                {name: "NGINX_AGENT_SERVER_GRPCPORT", value: "443"},
-                {name: "NGINX_AGENT_SERVER_HOST", value: "agent.connect.nginx.com"},
-                {name: "NGINX_AGENT_TLS_ENABLE", value: "true"},
-                {name: "NGINX_AGENT_TLS_SKIP_VERIFY", value: "false"},
-                {name: "NGINX_AGENT_SERVER_TOKEN", isVariable: true, isSecret: true},
-            ]}
-            attrs={[
-                { name: "volume", value: `${process.env["CONTAINER_MOUNT_BASE_DIR"]}/ssl:/etc/nginx/ssl` }
-            ]}
-        />
-    </DockerContainer>
-
-    <SetVariable
-        name="nginx-plus-1"
-        isComponent="true"
-    />
-    <SetVariable
-        name="nginx-plus-2"
-        isComponent="true"
-    />
-    <SetVariable
-        name="nginx-plus-3"
-        isComponent="true"
-    />
-    <SetVariable
-        name="nginx-oss-1"
-        isComponent="true"
-    />
-    <SetVariable
-        name="nginx-oss-2"
-        isComponent="true"
-    />
-    <SetVariable
-        name="NGINX_AGENT_INSTANCE_GROUP_OSS"
-        value={`${process.env["PETNAME"]}-oss`}
-    />
-
-    > Note: If you receive an error, it may be that you have not input and saved the **NGINX_AGENT_SERVER_TOKEN** variable above.
-
-1. Once the NGINX instance is up and running, press the **Test** button, to confirm the instance is online and responding to HTTP requests.
-
-Now, lets get started on the lab!
-
-[Proceed to the lab](./nginx-one-2.mdx)
+Let's now make sure you can access the XC tenant, **f5-xc-lab-app**. When you brought up this UDF Blueprint, it also
+provisions your access to XC using the email address used when logging into UDF. Let's confirm this on the next part
+of this session by [clicking here](nginx-one-2.mdx).
