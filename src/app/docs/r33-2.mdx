@@ -1,36 +1,35 @@
 ---
-title: Demo Lab
-description: License NGINX Plus in a connected environment
+title: Obtaining JWT for NGINX Plus R33
+description: Instructions for obtaining a JWT for NGINX Plus R33 Onward
 order: 2
 ---
 
 ## Introduction
 
-We will be going through a demo when you are in an environment connected to the internet. You can either:
+This section will go through steps for how you would obtain the JWT to license NGINX Plus R33. The place where you would
+get this is from [MyF5](https://www.myf5.com).
 
-1. Configure NGINX Plus to submit usage report directly to the F5 license server
-1. Configure NGINX Plus to submit usage report to NIM which will submit the report to the F5 license server
+## JWT for NGINX Plus
 
-This demo video will go through the option 1.
+### JWT via MyF5
 
-## Demo Lab
+Starting on NGINX Plus R33, you are required to use a valid JWT in order to use this. Take the following steps below
+to get it.
 
-This demo video will show the following parts:
-1. Configuring NGINX Plus to connect to F5 license server
-1. Show NGINX behavior throughout the licensing lifetime.
-    - NGINX Plus startup without JWT
-    - NGINX Plus behavior before 90 grace period
-    - NGINX Plus behavior after 90 day grace period but under 180 day period
-    - NGINX Plus behavior after 180 day period
+1. Go to [MyF5](https://www.myf5.com) and sign in or sign up if you do not have one.
+1. On top of the page select **MY PRODUCTS & PLAN** then **Subscriptions**.
+1. Find your **NGINX** subscription and select it.
+1. You will now be on a page where you can either **Copy** or **Download** your JWT.
 
-## Summary
+> If you do not see a subscription for the NGINX Plus R33 JWT, go to [this page](https://go/sde-r33-jwt) for
+information on how to get it, **VPN** required. Follow steps for option 1.
 
-After watching this video, you now understand:
-1. How to configure endpoint where to submit usage report.
-1. Understand NGINX Plus behavior before 90 day grace period, after 90 day grace period, and after 180 day grace period.
+### JWT via trial
+
+Another way of getting the JWT is by requesting an
+[NGINX Plus Trial](https://www.f5.com/trials/free-trial-nginx-plus-and-nginx-app-protect). You will eventually get an
+email that takes you to a site where you can download the JWT.
 
 ## Conclusion
 
-Now that you understand how to configure the reporting endpoint, let's proceed to the next lab where we will work on
-steps for submitting the usage report to the F5 license server in a fully disconnected environment in the disconnected
-lab. [Click here](r33-3.mdx) to proceed to that.
+You now have the JWT required for NGINX Plus R33 and can proceed with the labs here. [Click here](r33-3.mdx) to proceed.
