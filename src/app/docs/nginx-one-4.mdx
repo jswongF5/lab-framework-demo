@@ -119,7 +119,7 @@ the NGINX agent logs located at **/var/log/nginx-agent** from the NGINX instance
 Now that we've added an NGINX instance that is on a Virtual Machine, we will now try adding an NGINX container instance.
 
 The **Lab Framework** from the UDF environment has `docker` installed and is setup so it can run an NGINX Plus
-container image. The container image we will use here is **private-registry.nginx.com/nginx-plus/agent:debian** which
+container image. The container image we will use here is **private-registry.nginx.com/nginx-plus/agent:r32-debian** which
 has NGINX Plus with the Agent. If you want to see a list of all NGINX Plus with Agent tags, refer to the
 [documentation](https://docs.nginx.com/nginx/admin-guide/installing-nginx/installing-nginx-docker/#pulling-the-image).
 
@@ -142,7 +142,7 @@ addition to the originally provided command, we added two options that defines t
     --restart=always \
     --runtime=runc \
     --env=NGINX_AGENT_SERVER_TOKEN=YOUR_DATA_PLANE_KEY \
-    -d private-registry.nginx.com/nginx-plus/agent:debian
+    -d private-registry.nginx.com/nginx-plus/agent:r32-debian
     ```
 
 > **NOTE:** If you encounter a error saying **docker** is not installed, confirm you are on the **Lab Framework** Web
