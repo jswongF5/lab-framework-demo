@@ -24,7 +24,7 @@ lab guide to use the key in further steps.
 
     <DockerContainer>
         <Docker
-            name="nginx-plus-1"
+            name="nginx-plus-fixit1"
             desc="NGINX Plus R32 with Agent."
             image="private-registry.nginx.com/nginx-plus/agent:debian"
             env={[
@@ -40,7 +40,7 @@ lab guide to use the key in further steps.
             ]}
         />
         <Docker
-            name="nginx-plus-2"
+            name="nginx-plus-fixit2"
             desc="NGINX Plus R32 with Agent."
             image="private-registry.nginx.com/nginx-plus/agent:debian"
             env={[
@@ -102,7 +102,7 @@ lab guide to use the key in further steps.
 1. Now let's add some NGINX OSS instances to our config sync group.
     <DockerContainer>
         <Docker
-            name="nginx-oss-1"
+            name="nginx-oss-fixit1"
             desc="NGINX OSS 1.27.1 with Agent."
             image="private-registry-test.nginx.com/nginx/agent:1.27.1-alpine"
             env={[
@@ -118,7 +118,7 @@ lab guide to use the key in further steps.
             ]}
         />
         <Docker
-            name="nginx-oss-2"
+            name="nginx-oss-fixit2"
             desc="NGINX OSS 1.27.1 with Agent."
             image="private-registry-test.nginx.com/nginx/agent:1.27.1-alpine"
             env={[
@@ -212,7 +212,7 @@ NGINX One console.
 
     <DockerContainer>
         <Docker
-            name="nginx-plus-1"
+            name="nginx-plus-fixit1"
             desc="NGINX Plus R32 with Agent."
             image="private-registry.nginx.com/nginx-plus/agent:debian"
             env={[
@@ -228,7 +228,7 @@ NGINX One console.
             ]}
         />
         <Docker
-            name="nginx-plus-2"
+            name="nginx-plus-fixit2"
             desc="NGINX Plus R32 with Agent."
             image="private-registry.nginx.com/nginx-plus/agent:debian"
             env={[
@@ -244,7 +244,7 @@ NGINX One console.
             ]}
         />
         <Docker
-            name="nginx-oss-1"
+            name="nginx-oss-fixit1"
             desc="NGINX OSS 1.27.1 with Agent."
             image="private-registry-test.nginx.com/nginx/agent:1.27.1-alpine"
             env={[
@@ -260,7 +260,7 @@ NGINX One console.
             ]}
         />
         <Docker
-            name="nginx-oss-2"
+            name="nginx-oss-fixit2"
             desc="NGINX OSS 1.27.1 with Agent."
             image="private-registry-test.nginx.com/nginx/agent:1.27.1-alpine"
             env={[

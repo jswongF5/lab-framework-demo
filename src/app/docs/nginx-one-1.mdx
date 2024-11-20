@@ -99,10 +99,10 @@ NGINX One Console is a service provided within F5 Distributed Cloud.
 The NGINX Instances are located in the customers environment.
 
 > :warning: **Note:** In order for customers to use the NGINX One Console, the NGINX Instances must have internet
-connectivity. If their security policies prohibits this, there is product similar to the NGINX One Console called
+connectivity. If their security policies prohibits this, there is a product similar to the NGINX One Console called
 [NGINX Instance Manager](https://docs.nginx.com/nginx-management-suite/nim/) (NIM) that they can use within their environment.
 This will keep NGINX instance traffic within their environment but also note that the NGINX Instance Manager will upload
-customer metrics to F5.
+customer metrics to F5 by default. You are able to disable this starting on NIM 2.18, by setting **Disconnected Mode**.
 
 > NGINX Instance Manager is not in sustaining mode and has a dedicated development team with a roadmap. There was a
 product called NGINX Management Suite (NMS) which has NGINX Instance Manager built in. And NMS has moved to
@@ -124,6 +124,7 @@ firewall rules must allow the following type of traffic from the instances.
 | Port     | 443                     |
 | Protocol | gRPC                    |
 | Hostname | agent.connect.nginx.com |
+| IPs      | 3.135.72.139, 52.14.85.249, 3.133.232.50 |
 
 There are also a total of 2 gRPC connections for the following type of traffic.
 
